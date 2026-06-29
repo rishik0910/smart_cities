@@ -346,7 +346,7 @@ export default function AuthCard({ initialTab = "login" }) {
                   type="tel"
                   inputMode="numeric"
                   autoComplete="tel"
-                  placeholder="9014688920"
+                  placeholder="Enter 10-digit number"
                   value={loginPhone}
                   onChange={(e) => setLoginPhone(e.target.value)}
                   className="authpage-input"
@@ -507,7 +507,7 @@ export default function AuthCard({ initialTab = "login" }) {
                   type="tel"
                   inputMode="numeric"
                   autoComplete="tel"
-                  placeholder="9014688920"
+                  placeholder="Enter 10-digit number"
                   value={regPhone}
                   onChange={(e) => setRegPhone(e.target.value)}
                   className="authpage-input"

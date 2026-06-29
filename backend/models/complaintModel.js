@@ -35,8 +35,7 @@ const ComplaintModel = {
     // All complaints for one citizen
     findByUser: async (userId) => {
         const r = await db.query(
-            `SELECT c.*, w.ward_name FROM complaints c
-       LEFT JOIN wards w ON c.ward_id = w.ward_name
+            `SELECT c.*, c.ward_id AS ward_name FROM complaints c
        WHERE c.user_id = $1
        ORDER BY c.created_at DESC`,
             [userId]
@@ -128,9 +127,8 @@ const ComplaintModel = {
 
         const countRes = await db.query(`SELECT COUNT(*) FROM complaints c ${where}`, params);
         const rows = await db.query(
-            `SELECT c.*, w.ward_name, u.name AS citizen_name, u.phone AS citizen_phone, o.name AS officer_name
+            `SELECT c.*, c.ward_id AS ward_name, u.name AS citizen_name, u.phone AS citizen_phone, o.name AS officer_name
        FROM complaints c
-       LEFT JOIN wards w ON c.ward_id     = w.ward_name
        LEFT JOIN users u ON c.user_id     = u.id
        LEFT JOIN users o ON c.assigned_to = o.id
        ${where}
