@@ -30,7 +30,7 @@ exports.getStats = async (req, res) => {
     res.json(stats);
   } catch (err) {
     console.error('Error in getStats:', err);
-    res.status(500).json({ error: 'Failed to fetch stats' });
+    res.status(500).json({ error: 'Failed to fetch stats', message: err.message, stack: err.stack });
   }
 };
 
@@ -40,7 +40,7 @@ exports.getAllComplaints = async (req, res) => {
     res.json(result);
   } catch (err) {
     console.error('Error in getAllComplaints:', err);
-    res.status(500).json({ error: 'Failed to fetch complaints' });
+    res.status(500).json({ error: 'Failed to fetch complaints', message: err.message, stack: err.stack });
   }
 };
 
@@ -50,7 +50,7 @@ exports.getWards = async (req, res) => {
     res.json({ wards });
   } catch (err) {
     console.error('Error in getWards:', err);
-    res.status(500).json({ error: 'Failed to fetch wards' });
+    res.status(500).json({ error: 'Failed to fetch wards', message: err.message, stack: err.stack });
   }
 };
 
@@ -60,7 +60,7 @@ exports.getOfficers = async (req, res) => {
     res.json({ officers });
   } catch (err) {
     console.error('Error in getOfficers:', err);
-    res.status(500).json({ error: 'Failed to fetch officers' });
+    res.status(500).json({ error: 'Failed to fetch officers', message: err.message, stack: err.stack });
   }
 };
 
