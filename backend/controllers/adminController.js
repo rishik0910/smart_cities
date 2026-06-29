@@ -28,7 +28,8 @@ exports.getStats = async (req, res) => {
   try {
     const stats = await ComplaintModel.getStats();
     res.json(stats);
-  } catch {
+  } catch (err) {
+    console.error('Error in getStats:', err);
     res.status(500).json({ error: 'Failed to fetch stats' });
   }
 };
@@ -37,7 +38,8 @@ exports.getAllComplaints = async (req, res) => {
   try {
     const result = await ComplaintModel.findAll(req.query);
     res.json(result);
-  } catch {
+  } catch (err) {
+    console.error('Error in getAllComplaints:', err);
     res.status(500).json({ error: 'Failed to fetch complaints' });
   }
 };
@@ -46,7 +48,8 @@ exports.getWards = async (req, res) => {
   try {
     const wards = await WardModel.getAll();
     res.json({ wards });
-  } catch {
+  } catch (err) {
+    console.error('Error in getWards:', err);
     res.status(500).json({ error: 'Failed to fetch wards' });
   }
 };
@@ -55,7 +58,8 @@ exports.getOfficers = async (req, res) => {
   try {
     const officers = await UserModel.getAllOfficers();
     res.json({ officers });
-  } catch {
+  } catch (err) {
+    console.error('Error in getOfficers:', err);
     res.status(500).json({ error: 'Failed to fetch officers' });
   }
 };
