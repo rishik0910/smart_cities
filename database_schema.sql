@@ -45,6 +45,7 @@ CREATE TABLE complaints (
   latitude      DECIMAL(9,6) NOT NULL,
   longitude     DECIMAL(9,6) NOT NULL,
   address       TEXT,
+  state         VARCHAR(100),
   status        VARCHAR(30) DEFAULT 'pending', -- 'pending' | 'assigned' | 'in_progress' | 'resolved' | 'rejected'
   assigned_to   INT REFERENCES users(id),
   resolved_at   TIMESTAMP,
