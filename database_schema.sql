@@ -38,7 +38,7 @@ CREATE TABLE wards (
 CREATE TABLE complaints (
   id            SERIAL PRIMARY KEY,
   user_id       INT REFERENCES users(id) ON DELETE SET NULL,
-  ward_id       INT REFERENCES wards(id),
+  ward_id       VARCHAR(100),
   category      VARCHAR(50) NOT NULL, -- 'garbage_dump' | 'missed_pickup' | 'overflowing_bin' | 'other'
   description   TEXT,
   photo_url     TEXT,

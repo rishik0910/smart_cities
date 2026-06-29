@@ -1,3 +1,7 @@
+-- Fix complaints.ward_id type mismatch
+ALTER TABLE complaints DROP CONSTRAINT IF EXISTS complaints_ward_id_fkey;
+ALTER TABLE complaints ALTER COLUMN ward_id TYPE VARCHAR(100);
+
 -- Add priority, severity, after_photo, votes, points columns
 ALTER TABLE complaints
   ADD COLUMN IF NOT EXISTS priority      VARCHAR(20) DEFAULT 'medium',
