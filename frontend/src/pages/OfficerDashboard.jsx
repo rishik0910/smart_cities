@@ -531,172 +531,156 @@ export default function OfficerDashboard() {
                   </div>
                 </div>
 
-                {/* Main and Sidebar Layout */}
-                <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px', alignItems: 'start' }}>
+                {/* Centered Single Column Workspace */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '800px', margin: '0 auto' }}>
                   
-                  {/* LEFT COLUMN: Main Activity Flow */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                  {/* 1. Citizen's Original Report */}
+                  <div style={{ 
+                    background: 'var(--white)', 
+                    border: '1.5px solid var(--sand-100)', 
+                    borderRadius: '20px', 
+                    padding: '24px', 
+                    boxShadow: 'var(--shadow-sm)' 
+                  }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                      <span style={{ fontSize: '10.5px', fontWeight: '850', color: 'var(--sand-400)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                        Original Report
+                      </span>
+                      <span style={{ fontSize: '12px', color: 'var(--sand-450)', fontWeight: '600' }}>
+                        📅 {new Date(selected.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                    </div>
                     
-                    {/* 1. Citizen's Original Report */}
-                    <div style={{ 
-                      background: 'var(--white)', 
-                      border: '1.5px solid var(--sand-100)', 
-                      borderRadius: '20px', 
-                      padding: '24px', 
-                      boxShadow: 'var(--shadow-sm)' 
-                    }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-                        <span style={{ fontSize: '10.5px', fontWeight: '850', color: 'var(--sand-400)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                          Original Report
-                        </span>
-                        <span style={{ fontSize: '12px', color: 'var(--sand-450)', fontWeight: '600' }}>
-                          📅 {new Date(selected.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                        </span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                      <div style={{
+                        width: '36px', height: '36px', borderRadius: '50%',
+                        background: 'var(--sand-100)', color: 'var(--ink)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontWeight: '900', fontSize: '14px'
+                      }}>
+                        {selected.citizen_name ? selected.citizen_name[0].toUpperCase() : 'C'}
                       </div>
-                      
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                        <div style={{
-                          width: '36px', height: '36px', borderRadius: '50%',
-                          background: 'var(--sand-100)', color: 'var(--ink)',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          fontWeight: '900', fontSize: '14px'
-                        }}>
-                          {selected.citizen_name ? selected.citizen_name[0].toUpperCase() : 'C'}
-                        </div>
-                        <div>
-                          <div style={{ fontSize: '14px', fontWeight: '800', color: 'var(--ink)' }}>{selected.citizen_name}</div>
-                          <div style={{ fontSize: '11px', color: 'var(--sand-450)' }}>Citizen Reporter</div>
-                        </div>
+                      <div>
+                        <div style={{ fontSize: '14px', fontWeight: '800', color: 'var(--ink)' }}>{selected.citizen_name}</div>
+                        <div style={{ fontSize: '11px', color: 'var(--sand-450)' }}>Citizen Reporter</div>
                       </div>
-
-                      {selected.description && (
-                        <div style={{ 
-                          fontSize: '14px', color: 'var(--sand-700)', lineHeight: '1.6', 
-                          background: 'var(--sand-50)', padding: '16px 20px', borderRadius: '12px', 
-                          borderLeft: '4px solid var(--green-500)', fontStyle: 'italic'
-                        }}>
-                          "{selected.description}"
-                        </div>
-                      )}
-
-                      {selected.photo_url && (
-                        <div style={{ 
-                          marginTop: '20px',
-                          borderRadius: '12px', 
-                          overflow: 'hidden', 
-                          border: '1.5px solid var(--sand-150)', 
-                          background: 'var(--sand-50)', 
-                          display: 'flex', 
-                          justifyContent: 'center' 
-                        }}>
-                          <img 
-                            src={selected.photo_url} 
-                            alt="complaint evidence"
-                            style={{ width: '100%', maxHeight: 320, objectFit: 'contain', display: 'block' }}
-                            onError={(e) => {
-                              e.currentTarget.parentElement.style.display = 'none';
-                            }}
-                          />
-                        </div>
-                      )}
                     </div>
 
-                    {/* 2. Status Timeline */}
-                    {detail?.history?.length > 0 && (
+                    {selected.description && (
                       <div style={{ 
-                        background: 'var(--white)', 
-                        border: '1.5px solid var(--sand-100)', 
-                        borderRadius: '20px', 
-                        padding: '24px', 
-                        boxShadow: 'var(--shadow-sm)' 
+                        fontSize: '14px', color: 'var(--sand-700)', lineHeight: '1.6', 
+                        background: 'var(--sand-50)', padding: '16px 20px', borderRadius: '12px', 
+                        borderLeft: '4px solid var(--green-500)', fontStyle: 'italic'
                       }}>
-                        <span style={{ fontSize: '10.5px', fontWeight: '850', color: 'var(--sand-400)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '20px' }}>
-                          Activity & Status History
-                        </span>
-                        <StatusTimeline history={detail.history} />
+                        "{selected.description}"
                       </div>
                     )}
 
-                    {/* 3. Action Panel (Update Status) */}
-                    {nextActions.length > 0 && (
+                    {selected.photo_url && (
                       <div style={{ 
-                        background: 'var(--white)', 
-                        border: '1.5px solid var(--sand-100)', 
-                        borderRadius: '20px', 
-                        padding: '24px', 
-                        boxShadow: 'var(--shadow-sm)' 
+                        marginTop: '20px',
+                        borderRadius: '12px', 
+                        overflow: 'hidden', 
+                        border: '1.5px solid var(--sand-150)', 
+                        background: 'var(--sand-50)', 
+                        display: 'flex', 
+                        justifyContent: 'center' 
                       }}>
-                        <span style={{ fontSize: '10.5px', fontWeight: '850', color: 'var(--sand-400)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '16px' }}>
-                          Take Action: Update Status
-                        </span>
-                        <textarea 
-                          value={note} 
-                          onChange={e => setNote(e.target.value)}
-                          placeholder="Write an internal note or update message for the citizen (optional)..." 
-                          rows={3}
-                          style={{
-                            width: '100%',
-                            padding: '14px',
-                            borderRadius: '12px',
-                            border: '1.5px solid var(--sand-200)',
-                            background: 'var(--sand-50)',
-                            fontSize: '13.5px',
-                            fontFamily: 'inherit',
-                            color: 'var(--ink)',
-                            outline: 'none',
-                            resize: 'none',
-                            marginBottom: '16px',
-                            transition: 'all 0.2s'
+                        <img 
+                          src={selected.photo_url} 
+                          alt="complaint evidence"
+                          style={{ width: '100%', maxHeight: 320, objectFit: 'contain', display: 'block' }}
+                          onError={(e) => {
+                            e.currentTarget.parentElement.style.display = 'none';
                           }}
                         />
-                        <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
-                          {nextActions.map(a => (
-                            <button 
-                              key={a.value} 
-                              onClick={() => handleUpdate(a.value)} 
-                              disabled={updating}
-                              style={{
-                                padding: '12px 24px',
-                                borderRadius: '12px',
-                                fontSize: '13px',
-                                fontWeight: '800',
-                                cursor: 'pointer',
-                                border: 'none',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontFamily: 'inherit',
-                                transition: 'all 0.2s',
-                                background: a.value === 'resolved' || a.value === 'assigned' ? 'var(--green-500)' : a.value === 'in_progress' ? '#3b82f6' : 'none',
-                                color: a.value === 'rejected' ? 'var(--sand-600)' : '#fff',
-                                border: a.value === 'rejected' ? '1.5px solid var(--sand-200)' : 'none',
-                                boxShadow: a.value !== 'rejected' ? '0 4px 12px rgba(0,0,0,0.1)' : 'none'
-                              }}
-                            >
-                              {updating ? 'Updating...' : a.label}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Resolved Banner */}
-                    {selected.status === 'resolved' && (
-                      <div style={{ 
-                        background: 'var(--green-50)', border: '1.5px solid var(--green-200)',
-                        borderRadius: '16px', padding: '20px', textAlign: 'center',
-                        fontSize: '14px', fontWeight: '800', color: 'var(--green-600)',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
-                      }}>
-                        <span>✅</span> This complaint has been successfully resolved.
                       </div>
                     )}
                   </div>
 
-                  {/* RIGHT COLUMN: Sidebar (Metadata & Reference) */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                  {/* 2. Incident Location */}
+                  <div style={{ 
+                    background: 'var(--white)', 
+                    border: '1.5px solid var(--sand-100)', 
+                    borderRadius: '20px', 
+                    padding: '24px', 
+                    boxShadow: 'var(--shadow-sm)' 
+                  }}>
+                    <span style={{ fontSize: '10.5px', fontWeight: '850', color: 'var(--sand-400)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '12px' }}>
+                      Incident Location
+                    </span>
+                    <div style={{ fontSize: '13.5px', color: 'var(--ink)', lineHeight: '1.5', fontWeight: '750', marginBottom: '10px' }}>
+                      📍 {selected.address || 'No address details provided'}
+                    </div>
+                    <div style={{ marginBottom: '16px' }}>
+                      <a 
+                        href={`https://www.google.com/maps/dir/?api=1&destination=${selected.latitude},${selected.longitude}`}
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        style={{ fontSize: '12px', fontWeight: '850', color: 'var(--green-600)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                      >
+                        🧭 Navigate with Google Maps ↗
+                      </a>
+                    </div>
+                    <div style={{ borderRadius: '14px', overflow: 'hidden', border: '1.5px solid var(--sand-150)', height: '260px' }}>
+                      <SinglePinMap latitude={selected.latitude} longitude={selected.longitude} height={260} />
+                    </div>
+                  </div>
+
+                  {/* 3. Ticket Details & Citizen Contact */}
+                  <div style={{ 
+                    background: 'var(--white)', 
+                    border: '1.5px solid var(--sand-100)', 
+                    borderRadius: '20px', 
+                    padding: '24px', 
+                    boxShadow: 'var(--shadow-sm)' 
+                  }}>
+                    <span style={{ fontSize: '10.5px', fontWeight: '850', color: 'var(--sand-400)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '16px' }}>
+                      Ticket Metadata
+                    </span>
                     
-                    {/* 1. Incident Location Map */}
+                    {/* Category */}
+                    <div style={{ marginBottom: '16px' }}>
+                      <div style={{ fontSize: '11px', color: 'var(--sand-450)', fontWeight: '600' }}>Category</div>
+                      <div style={{ fontSize: '14px', fontWeight: '800', color: 'var(--ink)', marginTop: '2px', textTransform: 'capitalize' }}>
+                        {ICONS[selected.category] || '📋'} {selected.category?.replace(/_/g, ' ')}
+                      </div>
+                    </div>
+
+                    {/* Severity */}
+                    <div style={{ marginBottom: '16px' }}>
+                      <div style={{ fontSize: '11px', color: 'var(--sand-450)', fontWeight: '600' }}>Severity</div>
+                      <div style={{ fontSize: '13px', fontWeight: '800', color: selected.severity === 'critical' ? '#dc2626' : selected.severity === 'high' ? '#2563eb' : '#d97706', marginTop: '4px', textTransform: 'capitalize' }}>
+                        ● {selected.severity || 'Medium'}
+                      </div>
+                    </div>
+
+                    <hr style={{ border: 'none', height: '1px', background: 'var(--sand-100)', margin: '16px 0' }} />
+
+                    {/* Citizen Contact */}
+                    <div>
+                      <div style={{ fontSize: '11px', color: 'var(--sand-450)', fontWeight: '600', marginBottom: '6px' }}>Citizen Contact</div>
+                      <div style={{ fontSize: '14px', fontWeight: '800', color: 'var(--ink)' }}>{selected.citizen_name}</div>
+                      <div style={{ fontSize: '12px', color: 'var(--sand-500)', marginTop: '2px', fontWeight: '600' }}>{selected.citizen_phone}</div>
+                      <a 
+                        href={`tel:${selected.citizen_phone}`}
+                        style={{
+                          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                          padding: '10px', borderRadius: '10px', background: 'var(--sand-50)',
+                          border: '1.5px solid var(--sand-200)', color: 'var(--ink)',
+                          textDecoration: 'none', fontSize: '12px', fontWeight: '800',
+                          marginTop: '12px', transition: 'all 0.2s', textAlign: 'center'
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.background = 'var(--sand-100)'}
+                        onMouseLeave={e => e.currentTarget.style.background = 'var(--sand-50)'}
+                      >
+                        📞 Call Citizen
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* 4. Status Timeline */}
+                  {detail?.history?.length > 0 && (
                     <div style={{ 
                       background: 'var(--white)', 
                       border: '1.5px solid var(--sand-100)', 
@@ -704,28 +688,15 @@ export default function OfficerDashboard() {
                       padding: '24px', 
                       boxShadow: 'var(--shadow-sm)' 
                     }}>
-                      <span style={{ fontSize: '10.5px', fontWeight: '850', color: 'var(--sand-400)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '12px' }}>
-                        Incident Location
+                      <span style={{ fontSize: '10.5px', fontWeight: '850', color: 'var(--sand-400)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '20px' }}>
+                        Activity & Status History
                       </span>
-                      <div style={{ fontSize: '13.5px', color: 'var(--ink)', lineHeight: '1.5', fontWeight: '750', marginBottom: '10px' }}>
-                        📍 {selected.address || 'No address details provided'}
-                      </div>
-                      <div style={{ marginBottom: '16px' }}>
-                        <a 
-                          href={`https://www.google.com/maps/dir/?api=1&destination=${selected.latitude},${selected.longitude}`}
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          style={{ fontSize: '12px', fontWeight: '850', color: 'var(--green-600)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
-                        >
-                          🧭 Navigate with Google Maps ↗
-                        </a>
-                      </div>
-                      <div style={{ borderRadius: '14px', overflow: 'hidden', border: '1.5px solid var(--sand-150)', height: '200px' }}>
-                        <SinglePinMap latitude={selected.latitude} longitude={selected.longitude} height={200} />
-                      </div>
+                      <StatusTimeline history={detail.history} />
                     </div>
+                  )}
 
-                    {/* 2. Ticket Details & Citizen Contact */}
+                  {/* 5. Action Panel (Update Status) */}
+                  {nextActions.length > 0 && (
                     <div style={{ 
                       background: 'var(--white)', 
                       border: '1.5px solid var(--sand-100)', 
@@ -734,51 +705,70 @@ export default function OfficerDashboard() {
                       boxShadow: 'var(--shadow-sm)' 
                     }}>
                       <span style={{ fontSize: '10.5px', fontWeight: '850', color: 'var(--sand-400)', textTransform: 'uppercase', letterSpacing: '0.5px', display: 'block', marginBottom: '16px' }}>
-                        Ticket Metadata
+                        Take Action: Update Status
                       </span>
-                      
-                      {/* Category */}
-                      <div style={{ marginBottom: '16px' }}>
-                        <div style={{ fontSize: '11px', color: 'var(--sand-450)', fontWeight: '600' }}>Category</div>
-                        <div style={{ fontSize: '14px', fontWeight: '800', color: 'var(--ink)', marginTop: '2px', textTransform: 'capitalize' }}>
-                          {ICONS[selected.category] || '📋'} {selected.category?.replace(/_/g, ' ')}
-                        </div>
-                      </div>
-
-                      {/* Severity */}
-                      <div style={{ marginBottom: '16px' }}>
-                        <div style={{ fontSize: '11px', color: 'var(--sand-450)', fontWeight: '600' }}>Severity</div>
-                        <div style={{ fontSize: '13px', fontWeight: '800', color: selected.severity === 'critical' ? '#dc2626' : selected.severity === 'high' ? '#2563eb' : '#d97706', marginTop: '4px', textTransform: 'capitalize' }}>
-                          ● {selected.severity || 'Medium'}
-                        </div>
-                      </div>
-
-                      <hr style={{ border: 'none', height: '1px', background: 'var(--sand-100)', margin: '16px 0' }} />
-
-                      {/* Citizen Contact */}
-                      <div>
-                        <div style={{ fontSize: '11px', color: 'var(--sand-450)', fontWeight: '600', marginBottom: '6px' }}>Citizen Contact</div>
-                        <div style={{ fontSize: '14px', fontWeight: '800', color: 'var(--ink)' }}>{selected.citizen_name}</div>
-                        <div style={{ fontSize: '12px', color: 'var(--sand-500)', marginTop: '2px', fontWeight: '600' }}>{selected.citizen_phone}</div>
-                        <a 
-                          href={`tel:${selected.citizen_phone}`}
-                          style={{
-                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                            padding: '10px', borderRadius: '10px', background: 'var(--sand-50)',
-                            border: '1.5px solid var(--sand-200)', color: 'var(--ink)',
-                            textDecoration: 'none', fontSize: '12px', fontWeight: '800',
-                            marginTop: '12px', transition: 'all 0.2s', textAlign: 'center'
-                          }}
-                          onMouseEnter={e => e.currentTarget.style.background = 'var(--sand-100)'}
-                          onMouseLeave={e => e.currentTarget.style.background = 'var(--sand-50)'}
-                        >
-                          📞 Call Citizen
-                        </a>
+                      <textarea 
+                        value={note} 
+                        onChange={e => setNote(e.target.value)}
+                        placeholder="Write an internal note or update message for the citizen (optional)..." 
+                        rows={3}
+                        style={{
+                          width: '100%',
+                          padding: '14px',
+                          borderRadius: '12px',
+                          border: '1.5px solid var(--sand-200)',
+                          background: 'var(--sand-50)',
+                          fontSize: '13.5px',
+                          fontFamily: 'inherit',
+                          color: 'var(--ink)',
+                          outline: 'none',
+                          resize: 'none',
+                          marginBottom: '16px',
+                          transition: 'all 0.2s'
+                        }}
+                      />
+                      <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+                        {nextActions.map(a => (
+                          <button 
+                            key={a.value} 
+                            onClick={() => handleUpdate(a.value)} 
+                            disabled={updating}
+                            style={{
+                              padding: '12px 24px',
+                              borderRadius: '12px',
+                              fontSize: '13px',
+                              fontWeight: '800',
+                              cursor: 'pointer',
+                              border: 'none',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontFamily: 'inherit',
+                              transition: 'all 0.2s',
+                              background: a.value === 'resolved' || a.value === 'assigned' ? 'var(--green-500)' : a.value === 'in_progress' ? '#3b82f6' : 'none',
+                              color: a.value === 'rejected' ? 'var(--sand-600)' : '#fff',
+                              border: a.value === 'rejected' ? '1.5px solid var(--sand-200)' : 'none',
+                              boxShadow: a.value !== 'rejected' ? '0 4px 12px rgba(0,0,0,0.1)' : 'none'
+                            }}
+                          >
+                            {updating ? 'Updating...' : a.label}
+                          </button>
+                        ))}
                       </div>
                     </div>
+                  )}
 
-                  </div>
-
+                  {/* 6. Resolved Banner */}
+                  {selected.status === 'resolved' && (
+                    <div style={{ 
+                      background: 'var(--green-50)', border: '1.5px solid var(--green-200)',
+                      borderRadius: '16px', padding: '20px', textAlign: 'center',
+                      fontSize: '14px', fontWeight: '800', color: 'var(--green-600)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
+                    }}>
+                      <span>✅</span> This complaint has been successfully resolved.
+                    </div>
+                  )}
                 </div>
               </div>
             )}

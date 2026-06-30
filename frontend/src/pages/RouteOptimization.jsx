@@ -266,7 +266,7 @@ export default function RouteOptimization() {
           </p>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: route.length > 0 ? '1fr 1.2fr' : '1fr', gap: '24px', alignItems: 'start' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '800px', margin: '0 auto' }}>
           
           {/* Map & Guide Column */}
           <div>
@@ -280,7 +280,7 @@ export default function RouteOptimization() {
                   Dotted line indicates the shortest path connecting all stops.
                 </p>
               </div>
-              <div ref={mapRef} style={{ width: '100%', height: '320px', background: 'var(--sand-50)', borderTop: '1.5px solid var(--sand-100)' }} />
+              <div ref={mapRef} style={{ width: '100%', height: '400px', background: 'var(--sand-50)', borderTop: '1.5px solid var(--sand-100)' }} />
             </div>
 
             {/* Quick Tips */}
