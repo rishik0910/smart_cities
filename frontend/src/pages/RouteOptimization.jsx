@@ -268,43 +268,7 @@ export default function RouteOptimization() {
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '800px', margin: '0 auto' }}>
           
-          {/* Map & Guide Column */}
-          <div>
-            {/* Map Container */}
-            <div className="route-card" style={{ padding: 0, overflow: 'hidden' }}>
-              <div style={{ padding: '20px 20px 12px' }}>
-                <h5 style={{ fontSize: '14px', fontWeight: '900', color: 'var(--ink)', margin: 0 }}>
-                  Optimized Transit Map
-                </h5>
-                <p style={{ color: 'var(--sand-400)', fontSize: '12px', marginTop: '2px', marginBottom: 0 }}>
-                  Dotted line indicates the shortest path connecting all stops.
-                </p>
-              </div>
-              <div ref={mapRef} style={{ width: '100%', height: '400px', background: 'var(--sand-50)', borderTop: '1.5px solid var(--sand-100)' }} />
-            </div>
-
-            {/* Quick Tips */}
-            <div style={{
-              background: 'var(--white)',
-              border: '1.5px solid var(--sand-100)',
-              borderRadius: '20px',
-              padding: '20px',
-              boxShadow: 'var(--shadow-sm)',
-              display: 'flex',
-              gap: '12px',
-              alignItems: 'flex-start'
-            }}>
-              <span style={{ fontSize: '24px' }}>💡</span>
-              <div>
-                <h6 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--ink)', margin: 0 }}>How it works</h6>
-                <p style={{ color: 'var(--sand-500)', fontSize: '11.5px', margin: '4px 0 0', lineHeight: '1.4' }}>
-                  The optimizer uses the **Nearest Neighbor** routing algorithm starting from your first assigned complaint. It arranges the sequence so you travel the shortest possible distance.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Route Itinerary Column */}
+          {/* 1. Route Itinerary (Stops List) */}
           {route.length > 0 && (
             <div>
               <div style={{ fontSize: '11px', fontWeight: '800', color: 'var(--sand-400)', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '16px' }}>
@@ -341,6 +305,39 @@ export default function RouteOptimization() {
               ))}
             </div>
           )}
+
+          {/* 2. Map Container */}
+          <div className="route-card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div style={{ padding: '20px 20px 12px' }}>
+              <h5 style={{ fontSize: '14px', fontWeight: '900', color: 'var(--ink)', margin: 0 }}>
+                Optimized Transit Map
+              </h5>
+              <p style={{ color: 'var(--sand-400)', fontSize: '12px', marginTop: '2px', marginBottom: 0 }}>
+                Dotted line indicates the shortest path connecting all stops.
+              </p>
+            </div>
+            <div ref={mapRef} style={{ width: '100%', height: '400px', background: 'var(--sand-50)', borderTop: '1.5px solid var(--sand-100)' }} />
+          </div>
+
+          {/* 3. Quick Tips */}
+          <div style={{
+            background: 'var(--white)',
+            border: '1.5px solid var(--sand-100)',
+            borderRadius: '20px',
+            padding: '20px',
+            boxShadow: 'var(--shadow-sm)',
+            display: 'flex',
+            gap: '12px',
+            alignItems: 'flex-start'
+          }}>
+            <span style={{ fontSize: '24px' }}>💡</span>
+            <div>
+              <h6 style={{ fontSize: '13px', fontWeight: '800', color: 'var(--ink)', margin: 0 }}>How it works</h6>
+              <p style={{ color: 'var(--sand-500)', fontSize: '11.5px', margin: '4px 0 0', lineHeight: '1.4' }}>
+                The optimizer uses the **Nearest Neighbor** routing algorithm starting from your first assigned complaint. It arranges the sequence so you travel the shortest possible distance.
+              </p>
+            </div>
+          </div>
 
         </div>
       )}
