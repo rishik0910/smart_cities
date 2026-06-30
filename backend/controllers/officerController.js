@@ -11,8 +11,7 @@ exports.wardComplaints = async (req,res) => {
     let q = `SELECT c.*, u.name AS citizen_name, u.phone AS citizen_phone
              FROM complaints c 
              JOIN users u ON c.user_id = u.id
-             LEFT JOIN wards w ON w.ward_name = c.ward_id
-             WHERE w.officer_id = $1 OR c.assigned_to = $1`;
+             WHERE c.ward_id IN (SELECT ward_name FROM wards WHERE officer_id = $1) OR c.assigned_to = $1`;
     const params=[req.user.id];
     if (status)   {params.push(status);   q+=` AND c.status=$${params.length}`;}
     if (priority) {params.push(priority); q+=` AND c.priority=$${params.length}`;}
